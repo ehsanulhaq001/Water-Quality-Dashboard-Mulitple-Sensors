@@ -194,7 +194,7 @@ export const makeChart = (
       },
       elements: {
         point: {
-          radius: 1,
+          radius: xLabel.length > 24 ? 0 : 1,
           hoverRadius: 10,
         },
       },
