@@ -37,7 +37,7 @@ function App() {
     let x = `${url}?sensor_id=${sensor}&period=${period}`;
     setLoading(true);
     axios.get(x).then((response) => {
-      const newData = makeWaterData(response.data, "time_stamp");
+      const newData = makeWaterData(response.data, period, "time_stamp");
       setWaterData(newData);
       setLoading(false);
     });

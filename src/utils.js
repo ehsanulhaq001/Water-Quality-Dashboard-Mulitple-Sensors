@@ -1,7 +1,7 @@
 import moment from "moment";
 import Chart from "chart.js/auto";
 
-export const makeWaterData = (arr, key = "Timestamp") => {
+export const makeWaterData = (arr, period, key = "Timestamp") => {
   //no need to sort data, data comes sorted from api
   // arr.sort((a, b) => timeDateSorter(a, b, key));
   let [dataLabels, tds, cod, bod, ph, temp, ec, dio] = [
@@ -27,6 +27,17 @@ export const makeWaterData = (arr, key = "Timestamp") => {
     );
     ec.push(Math.abs(arr[i]["CondUs/Cm"]) > 5000 ? 0 : arr[i]["CondUs/Cm"]);
     dio.push(10.27 - 0.6 * parseFloat(cod[i]) - 0.35 * parseFloat(bod[i]));
+  }
+  if (period === "last_day") {
+    console.log("last_day");
+    dataLabels.reverse();
+    tds.reverse();
+    cod.reverse();
+    bod.reverse();
+    ph.reverse();
+    temp.reverse();
+    ec.reverse();
+    dio.reverse();
   }
 
   return { dataLabels, tds, cod, bod, ph, temp, ec, dio };
