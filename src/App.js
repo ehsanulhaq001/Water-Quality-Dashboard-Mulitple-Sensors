@@ -6,7 +6,7 @@ import axios from "axios";
 import { makeChart, makeWaterData } from "./utils.js";
 import ReactLoading from "react-loading";
 import ReactSelect from "./ReactSelect.js";
-function App() {
+function App({ setUserAuthorized }) {
   const url =
     "https://8h19xk09w6.execute-api.us-west-2.amazonaws.com/default/e_water_quality_multiple_sensors";
   const [waterData, setWaterData] = useState(null);
@@ -34,13 +34,22 @@ function App() {
   // };
 
   useEffect(() => {
+    const headers = {
+      Accept: "application/json",
+      Authorization: "Bearer " + localStorage.getItem("accessToken:ehsan"),
+    };
     let x = `${url}?sensor_id=${sensor}&period=${period}`;
     setLoading(true);
-    axios.get(x).then((response) => {
-      const newData = makeWaterData(response.data, period, "time_stamp");
-      setWaterData(newData);
-      setLoading(false);
-    });
+    console.log(headers);
+    axios
+      .get(x, {
+        headers: headers,
+      })
+      .then((response) => {
+        const newData = makeWaterData(response.data, period, "time_stamp");
+        setWaterData(newData);
+        setLoading(false);
+      });
   }, [refresh, period, sensor]);
 
   useEffect(() => {
@@ -142,7 +151,24 @@ function App() {
   return (
     <div className="App dark">
       <header className="App-header">
-        WATER &nbsp; QUALITY &nbsp; MONITORING &nbsp; SYSTEM
+        <span className="title">
+          WATER &nbsp; QUALITY &nbsp; MONITORING &nbsp; SYSTEM
+        </span>
+        <span className="userEmailHolder">
+          <span className="userEmail">
+            {getDataFromJWT(localStorage.getItem("accessToken:ehsan")).email}
+          </span>
+          <span
+            className="logout"
+            onClick={() => {
+              localStorage.clear();
+              setUserAuthorized(false);
+            }}
+          >
+            Logout
+            {/* <img src={loginLogo}></img> */}
+          </span>
+        </span>
       </header>
       <div id="tabHolder" className="tabHolder">
         <div id="selectSensor">
@@ -169,6 +195,15 @@ function App() {
           </div>
           <div
             id="period2"
+            className={"tab " + (period === "last_week" ? "selected" : "")}
+            onClick={() => {
+              setPeriod("last_week");
+            }}
+          >
+            WEEK
+          </div>
+          <div
+            id="period3"
             className={"tab " + (period === "last_month" ? "selected" : "")}
             onClick={() => {
               setPeriod("last_month");
@@ -177,7 +212,7 @@ function App() {
             MONTH
           </div>
           <div
-            id="period3"
+            id="period4"
             className={"tab " + (period === "last_year" ? "selected" : "")}
             onClick={() => {
               setPeriod("last_year");
@@ -293,3 +328,23 @@ function App() {
 }
 
 export default App;
+
+const checkToken = () => {
+  let expiryTime = getDataFromJWT(
+    localStorage.getItem("accessToken:ehsan")
+  )?.exp;
+
+  let now = new Date().getTime() / 1000;
+  if (now > expiryTime) return false;
+  return true;
+};
+
+function getDataFromJWT(token) {
+  if (!token) {
+    return;
+  }
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace("-", "+").replace("_", "/");
+
+  return JSON.parse(window.atob(base64));
+}

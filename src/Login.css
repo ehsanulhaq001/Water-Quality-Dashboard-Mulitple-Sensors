@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.loginContainer {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #2a303c;
+    /* display: grid; */
+    /* grid-template-columns: 1fr;
+    grid-template-rows: 1fr; */
+    /* place-items: center; */
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    color: var(--text);
+    font-size: calc(var(--f0)*3);
+}
+
+.loginHolder {
+    /* background-color: white; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height: 100%; */
+    height: 80vh;
+}
+
+.loginHolder img {
+    height: 100px;
+    width: 100px;
+}
