@@ -102,13 +102,13 @@
     overflow: hidden;
     float: left;
     transition: width 0.3s;
-    color: var(--text3);
+    color: var(--text-dull);
     background-color: #2a303c;
     border-radius: 10px;
 }
 
 .App-header .userEmailHolder:hover {
-    box-shadow: 0 0 calc(var(--f0)*0.4) var(--text3);
+    box-shadow: 0 0 calc(var(--f0)*0.4) var(--text-dull);
     cursor: pointer;
 }
 
