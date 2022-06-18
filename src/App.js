@@ -40,7 +40,6 @@ function App({ setUserAuthorized }) {
     };
     let x = `${url}?sensor_id=${sensor}&period=${period}`;
     setLoading(true);
-    console.log(headers);
     axios
       .get(x, {
         headers: headers,
