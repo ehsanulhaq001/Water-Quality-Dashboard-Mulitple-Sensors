@@ -19,7 +19,7 @@ function App({ setUserAuthorized }) {
   const [vw, setVw] = useState();
   const [index, setIndex] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [period, setPeriod] = useState("last_day");
+  const [period, setPeriod] = useState("last_month");
   const [sensor, setSensor] = useState("WQ101");
 
   const destroyCharts = (i) => {

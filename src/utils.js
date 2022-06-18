@@ -29,7 +29,6 @@ export const makeWaterData = (arr, period, key = "Timestamp") => {
     dio.push(10.27 - 0.6 * parseFloat(cod[i]) - 0.35 * parseFloat(bod[i]));
   }
   if (period === "last_day") {
-    console.log("last_day");
     dataLabels.reverse();
     tds.reverse();
     cod.reverse();
@@ -214,8 +213,6 @@ export const makeChart = (
 };
 export const genRan = (min, max) => {
   let x = min + Math.floor(Math.random() * (max - min));
-  console.log(x);
-
   return x;
 };
 
