@@ -375,6 +375,7 @@ canvas {
         width: 100%;
         justify-content: space-around;
         margin-bottom: calc(var(--f0)*0.5);
+        padding: calc(var(--f0)*0.4) 0;
     }
     #selectSensor>span {
         margin: calc(var(--f0)*0.5), calc(var(--f0)*0.5);
