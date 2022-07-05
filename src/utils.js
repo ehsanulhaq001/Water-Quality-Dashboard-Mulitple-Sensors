@@ -16,16 +16,14 @@ export const makeWaterData = (arr, period, key = "Timestamp") => {
   ];
   for (let i = 0; i < arr.length; i++) {
     dataLabels.push(moment(toDate(arr[i][key])).format("lll"));
-    tds.push(Math.abs(arr[i]["TDSmg/l"]) > 5000 ? 0 : arr[i]["TDSmg/l"]);
-    cod.push(Math.abs(arr[i]["CODmg/l"]) > 100 ? 0 : arr[i]["CODmg/l"]);
-    bod.push(Math.abs(arr[i]["BODmg/l"]) > 100 ? 0 : arr[i]["BODmg/l"]);
-    ph.push(Math.abs(arr[i]["ph"]) > 20 ? 0 : arr[i]["ph"]);
+    tds.push(Math.abs(arr[i]["TDS"]) > 5000 ? 0 : arr[i]["TDS"]);
+    cod.push(Math.abs(arr[i]["COD"]) > 100 ? 0 : arr[i]["COD"]);
+    bod.push(Math.abs(arr[i]["BOD"]) > 100 ? 0 : arr[i]["BOD"]);
+    ph.push(Math.abs(arr[i]["pH"]) > 20 ? 0 : arr[i]["pH"]);
     temp.push(
-      Math.abs(arr[i]["Temperature(Air/Water)"]) > 101
-        ? 0
-        : arr[i]["Temperature(Air/Water)"]
+      Math.abs(arr[i]["temperature"]) > 101 ? 0 : arr[i]["temperature"]
     );
-    ec.push(Math.abs(arr[i]["CondUs/Cm"]) > 5000 ? 0 : arr[i]["CondUs/Cm"]);
+    ec.push(Math.abs(arr[i]["EC"]) > 5000 ? 0 : arr[i]["EC"]);
     dio.push(10.27 - 0.6 * parseFloat(cod[i]) - 0.35 * parseFloat(bod[i]));
   }
   if (period === "last_day") {
@@ -38,7 +36,7 @@ export const makeWaterData = (arr, period, key = "Timestamp") => {
     ec.reverse();
     dio.reverse();
   }
-
+  console.log(tds);
   return { dataLabels, tds, cod, bod, ph, temp, ec, dio };
 };
 
